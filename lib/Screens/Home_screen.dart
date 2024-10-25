@@ -25,7 +25,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Build the Video Category Section
   Widget _buildCategorySection() {
     return SizedBox(
       height: 50,
@@ -42,71 +41,76 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Sample video data
   final List<Map<String, String>> videos = [
     {
-      'title': 'Exploring the Flutter SDK',
-      'channel': 'Flutter Dev Channel',
-      'thumbnailColor': '0xFFB71C1C', // Red
+      'title': 'Overcomer',
+      'channel': 'Sony Pictures Entertainment',
+      'imageUrl': 'https://m.media-amazon.com/images/M/MV5BMzlmMjE4ODItODEzMS00ODkxLTg2NzAtODdkYzkxMWIwODMxXkEyXkFqcGc@._V1_.jpg',
     },
     {
       'title': 'Perfect Serve',
       'channel': 'Relturn',
-      'thumbnailColor': '0xFF1E88E5', // Blue
+      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsCQUTGsIbE-CaSfVe80j4JGukw9OpYTq7BQ&s',
     },
     {
       'title': 'Mastering Dart for Beginners',
       'channel': 'Gorret Golden',
-      'thumbnailColor': '0xFF43A047', // Green
+      'imageUrl': 'https://m.media-amazon.com/images/I/61KxfNgW7ZL._AC_UF1000,1000_QL80_.jpg',
     },
     {
-      'title': 'Top 10 Flutter Widgets',
-      'channel': 'Techie World',
-      'thumbnailColor': '0xFFFDD835', // Yellow
+      'title': 'Ed Sheeran Top Hit Songs',
+      'channel': 'Bonzer Player',
+      'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Ed_Sheeran_4%2C_2013.jpg/800px-Ed_Sheeran_4%2C_2013.jpg',
     },
     {
-      'title': 'Building a Responsive UI in Flutter',
-      'channel': 'Mobile Dev Weekly',
-      'thumbnailColor': '0xFF8E24AA', // Purple
+      'title': 'Adele Hits',
+      'channel': 'Best Songs of Adele',
+      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpA-7NWCg7nPQJrk_GQYBr-CB7Kz2WqoajYA&s',
     },
   ];
 
-  // Build the main video section with thumbnails, title, and channel info
   Widget _buildVideoSection() {
     return Column(
       children: List.generate(videos.length, (index) {
         return VideoCard(
           title: videos[index]['title']!,
           channel: videos[index]['channel']!,
-          thumbnailColor: videos[index]['thumbnailColor']!,
+          imageUrl: videos[index]['imageUrl']!,
           icon: Icons.play_circle_filled,
         );
       }),
     );
   }
 
-  // Build the Shorts section
   Widget _buildShortsSection() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Shorts',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          child: Row(
+            children: [
+              Image(
+                image: AssetImage('assets/images/shorts-removebg-preview.png'),
+                height: 30,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Shorts',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         SizedBox(
-          height: 150,
-          child: _ShortsList(),
+          height: 600,
+          child: ShortsList(),
         ),
       ],
     );
   }
 }
 
-// Widget for the Video Category Chips
 class _CategoryChip extends StatelessWidget {
   final String label;
   const _CategoryChip(this.label);
@@ -123,31 +127,98 @@ class _CategoryChip extends StatelessWidget {
   }
 }
 
-// Widget for the Shorts List
-class _ShortsList extends StatelessWidget {
-  const _ShortsList();
+class ShortsList extends StatelessWidget {
+  final List<Map<String, String>> shorts = [
+    {
+      'title': 'Never miss a tennis volley again.',
+      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWUG1mUvsPPnf-CzN2znkcWzOqbt9NiRyJng&s',
+    },
+    {
+      'title': 'Braces change your smile.',
+      'imageUrl': 'https://t4.ftcdn.net/jpg/01/77/99/79/360_F_177997962_7xhJgclDKvOvpm065DrAt4PeTFCsOHHM.jpg',
+    },
+    {
+      'title': 'Perfect hair growth.',
+      'imageUrl': 'https://media.istockphoto.com/id/1414766208/photo/man-with-hair-loss-problem-before-and-after-treatment-on-grey-background-collage-visiting.jpg?s=612x612&w=0&k=20&c=bYciuFvCMPs5CF1eQdi07E2ZXydk5Sn-TuHnMQtN5zA=',
+    },
+    {
+      'title': 'The most textbook forehand ever!',
+      'imageUrl': 'https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/onhvby18i444dghjnwvw.jpg',
+    },
+  ];
+
+  ShortsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 10,
+    return GridView.builder(
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        childAspectRatio: 0.75,
+      ),
+      itemCount: shorts.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
+        return ShortsCard(
+          title: shorts[index]['title']!,
+          imageUrl: shorts[index]['imageUrl']!,
+        );
+      },
+    );
+  }
+}
+
+// Updated ShortsCard to display title on the image
+class ShortsCard extends StatelessWidget {
+  final String title;
+  final String imageUrl;
+
+  const ShortsCard({
+    super.key,
+    required this.title,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Image for shorts
+        Container(
+          height: 250,
+          width: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            image: DecorationImage(
+              image: NetworkImage(imageUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        // Title overlay
+        Positioned(
+          bottom: 8,
+          left: 8,
           child: Container(
-            width: 100,
-            color: Colors.grey, // Set a color for the container
-            // You can add content here (e.g., images or text)
-            child: Center(
-              child: Text(
-                'Short $index',
-                style: const TextStyle(color: Colors.white),
+            padding: const EdgeInsets.all(4.0),
+            color: Colors.black54, // Semi-transparent background
+            child: Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Colors.white,
               ),
             ),
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 }

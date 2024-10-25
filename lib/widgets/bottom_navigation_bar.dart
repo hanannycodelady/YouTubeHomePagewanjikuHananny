@@ -9,24 +9,24 @@ class CustomBottomNavigationBar extends StatelessWidget {
       backgroundColor: Colors.black,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
-      items: [
-        const BottomNavigationBarItem(
+      items: const [
+        BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Image.asset('assets/images/shorts-removebg-preview.png', height: 24),
+          icon: Icon(Icons.video_library), 
           label: 'Shorts',
         ),
-        const BottomNavigationBarItem(
+        BottomNavigationBarItem(
           icon: Icon(Icons.add_circle_outline),
           label: 'Upload',
         ),
-        const BottomNavigationBarItem(
+        BottomNavigationBarItem(
           icon: Icon(Icons.subscriptions),
           label: 'Subscriptions',
         ),
-        const BottomNavigationBarItem(
+        BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
           label: 'You',
         ),
@@ -34,7 +34,3 @@ class CustomBottomNavigationBar extends StatelessWidget {
     );
   }
 }
-
-
-
-

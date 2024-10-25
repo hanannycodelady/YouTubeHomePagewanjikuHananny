@@ -5,14 +5,13 @@ AppBar customAppBar() {
     backgroundColor: Colors.black,
     title: Row(
       children: [
-        // YouTube Logo
         Image.asset(
-          'assets/images/youtube.jpg',
-          height: 30,
+          'assets/images/tube-removebg-preview.png',
+          height: 60,
         ),
         const SizedBox(width: 10),
         const Text(
-          'YouTube',
+          '',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
       ],
@@ -29,6 +28,5 @@ AppBar customAppBar() {
     ],
   );
 }
-
 
 
